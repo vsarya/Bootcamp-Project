@@ -1,29 +1,74 @@
 package com.adobe.dao.db;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.stereotype.Repository;
 
 import com.adobe.dao.EmployeeDao;
 import com.adobe.entity.Employee;
 import com.adobe.entity.Role;
 
+@Repository
 public class EmployeeDaoDatabaseImpl implements EmployeeDao {
 
 	@Override
 	public List<Employee> getEmployees() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Employee> employees = new ArrayList<Employee>();
+		Connection con = null;
+		Statement stmt = null;
+		String SQL = "SELECT id, first_name, last_name, email, salary, role FROM T_EMPLOYEE";
+		
+		try {
+			con = DBUtil.getConnection();
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(SQL);
+			while(rs.next()) {
+				Employee p = new Employee(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"), rs.getDouble("salary"), Role.valueOf(rs.getString("role")));
+				employees.add(p);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+//			throw new FetchException("unable to get products", e);		
+		} finally {
+			DBUtil.releaseStatement(stmt);
+			DBUtil.releaseConnection(con);
+		}
+		return employees;
 	}
 
 	@Override
 	public List<Employee> getEmployees(Role role) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void addEmployee(Employee employee) {
-		// TODO Auto-generated method stub
-
+		Connection con = null;
+		PreparedStatement ps = null;
+		String SQL = "INSERT INTO T_EMPLOYEE (id, first_name, last_name, email, salary, role) VALUES (?,?,?,?,?,?)";
+		
+		try {
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(SQL);
+			ps.setInt(1, employee.getId());
+			ps.setString(2, employee.getfName());
+			ps.setString(3, employee.getlName());
+			ps.setString(4, employee.getEmail());
+			ps.setDouble(5, employee.getSalary());
+			ps.setString(6, employee.getRole().name());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+//			throw new PersistenceException("unable to add product", e);		
+		} finally {
+			DBUtil.releaseStatement(ps);
+			DBUtil.releaseConnection(con);
+		}
 	}
 
 	@Override

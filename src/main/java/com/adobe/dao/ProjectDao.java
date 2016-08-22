@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.adobe.entity.Employee;
 import com.adobe.entity.Project;
+import com.adobe.entity.ProjectContributor;
 
 public interface ProjectDao {
 	
@@ -15,5 +16,5 @@ public interface ProjectDao {
 	
 	void addManager(Employee manager);
 	
-	void addStaff(Employee staff);
+	void assignEmployee(ProjectContributor contributor);
 }

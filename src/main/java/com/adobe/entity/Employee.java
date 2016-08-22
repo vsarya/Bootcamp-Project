@@ -61,7 +61,7 @@ public class Employee {
 		this.salary = salary;
 	}
 
-	public final Role getType() {
+	public final Role getRole() {
 		return role;
 	}
 
