@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.adobe.dao.ProjectDao;
 import com.adobe.entity.Employee;
 import com.adobe.entity.Project;
+import com.adobe.entity.ProjectContributor;
 
 @Repository
 public class ProjectDaoDatabaseImpl implements ProjectDao {
@@ -69,15 +70,12 @@ public class ProjectDaoDatabaseImpl implements ProjectDao {
 	}
 
 	@Override
-	public void addManager(Employee manager) {
-		// TODO Auto-generated method stub
-
+	public void assignManager(Employee manager) {
+		
 	}
 
 	@Override
-	public void addStaff(Employee staff) {
-		// TODO Auto-generated method stub
-
+	public void assignEmployee(ProjectContributor projectContributor) {
+		
 	}
-
 }

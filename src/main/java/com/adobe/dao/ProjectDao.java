@@ -14,7 +14,7 @@ public interface ProjectDao {
 	
 	void addProject(Project project);
 	
-	void addManager(Employee manager);
+	void assignManager(Employee manager);
 	
 	void assignEmployee(ProjectContributor contributor);
 }
