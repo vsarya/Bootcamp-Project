@@ -78,4 +78,5 @@ public class ProjectDaoDatabaseImpl implements ProjectDao {
 	public void assignEmployee(ProjectContributor projectContributor) {
 		
 	}
+
 }
