@@ -11,7 +11,6 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.adobe.dao.ProjectDao;
-import com.adobe.entity.Employee;
 import com.adobe.entity.Project;
 import com.adobe.entity.ProjectContributor;
 
@@ -70,13 +69,42 @@ public class ProjectDaoDatabaseImpl implements ProjectDao {
 	}
 
 	@Override
-	public void assignManager(Employee manager) {
+	public void assignManager(ProjectContributor projectContributor) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		String SQL = "INSERT INTO T_MANAGES (project_id, manager_id) VALUES (?,?)";
 		
+		try {
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(SQL);
+			ps.setInt(1, projectContributor.getProjectId());
+			ps.setInt(2, projectContributor.getEmployeeId());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+//			throw new PersistenceException("unable to add product", e);		
+		} finally {
+			DBUtil.releaseStatement(ps);
+			DBUtil.releaseConnection(con);
+		}
 	}
 
 	@Override
 	public void assignEmployee(ProjectContributor projectContributor) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		String SQL = "INSERT INTO T_WORKS_ON (project_id, employee_id) VALUES (?,?)";
 		
+		try {
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(SQL);
+			ps.setInt(1, projectContributor.getProjectId());
+			ps.setInt(2, projectContributor.getEmployeeId());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+//			throw new PersistenceException("unable to add product", e);		
+		} finally {
+			DBUtil.releaseStatement(ps);
+			DBUtil.releaseConnection(con);
+		}
 	}
-
 }

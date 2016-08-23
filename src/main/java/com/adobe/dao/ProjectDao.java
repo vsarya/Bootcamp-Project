@@ -2,7 +2,6 @@ package com.adobe.dao;
 
 import java.util.List;
 
-import com.adobe.entity.Employee;
 import com.adobe.entity.Project;
 import com.adobe.entity.ProjectContributor;
 
@@ -14,7 +13,7 @@ public interface ProjectDao {
 	
 	void addProject(Project project);
 	
-	void assignManager(Employee manager);
+	void assignManager(ProjectContributor projectContributor);
 	
 	void assignEmployee(ProjectContributor contributor);
 }

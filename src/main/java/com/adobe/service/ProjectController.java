@@ -35,6 +35,12 @@ public class ProjectController {
 	@RequestMapping(value="/assignEmployee", method = RequestMethod.POST)
 	public ResponseEntity<String> assignEmployee(@RequestBody ProjectContributor projectContributor) {
 		projectDao.assignEmployee(projectContributor);
-		return new ResponseEntity<String>("", HttpStatus.ACCEPTED);
+		return new ResponseEntity<String>("Employee Assigned", HttpStatus.ACCEPTED);
+	}
+	
+	@RequestMapping(value="/assignManager", method = RequestMethod.POST)
+	public ResponseEntity<String> assignManager(@RequestBody ProjectContributor projectContributor) {
+		projectDao.assignManager(projectContributor);
+		return new ResponseEntity<String>("Manager Assigned", HttpStatus.ACCEPTED);
 	}
 }
