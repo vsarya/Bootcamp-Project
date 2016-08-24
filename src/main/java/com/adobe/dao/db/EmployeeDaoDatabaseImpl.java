@@ -33,8 +33,8 @@ public class EmployeeDaoDatabaseImpl implements EmployeeDao {
 				employees.add(p);
 			}
 		} catch (SQLException e) {
+		    System.out.println("Error occurred while fetching employees");
 			e.printStackTrace();
-//			throw new FetchException("unable to get products", e);		
 		} finally {
 			DBUtil.releaseStatement(stmt);
 			DBUtil.releaseConnection(con);
@@ -64,7 +64,8 @@ public class EmployeeDaoDatabaseImpl implements EmployeeDao {
 			ps.setString(6, employee.getRole().name());
 			ps.executeUpdate();
 		} catch (SQLException e) {
-//			throw new PersistenceException("unable to add product", e);		
+		    e.printStackTrace();
+		    System.out.println("Error occurred while adding an employee");
 		} finally {
 			DBUtil.releaseStatement(ps);
 			DBUtil.releaseConnection(con);
@@ -73,7 +74,6 @@ public class EmployeeDaoDatabaseImpl implements EmployeeDao {
 
 	@Override
 	public Employee getEmployee(int id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.adobe.dao.ProjectDao;
 import com.adobe.entity.Project;
 import com.adobe.entity.ProjectContributor;
+import com.adobe.entity.ProjectDisplayItem;
 
 @Controller
 public class ProjectController {
@@ -22,7 +23,7 @@ public class ProjectController {
 	private ProjectDao projectDao;
 	
 	@RequestMapping(value="/projects", method = RequestMethod.GET)
-	public @ResponseBody List<Project> getProjects() {
+	public @ResponseBody List<ProjectDisplayItem> getProjects() {
 		return projectDao.getProjects();
 	}
 	

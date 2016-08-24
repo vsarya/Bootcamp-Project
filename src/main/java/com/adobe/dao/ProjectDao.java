@@ -4,10 +4,11 @@ import java.util.List;
 
 import com.adobe.entity.Project;
 import com.adobe.entity.ProjectContributor;
+import com.adobe.entity.ProjectDisplayItem;
 
 public interface ProjectDao {
 	
-	List<Project> getProjects();
+	List<ProjectDisplayItem> getProjects();
 	
 	Project getProject(int id);
 	
