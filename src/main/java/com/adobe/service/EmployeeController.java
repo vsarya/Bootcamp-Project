@@ -25,7 +25,7 @@ public class EmployeeController {
 		return employeeDao.getEmployees();
 	}
 	
-	@RequestMapping(value="/employees", method = RequestMethod.POST)
+	@RequestMapping(value="/addEmployee", method = RequestMethod.POST)
 	public ResponseEntity<String> addEmployee(@RequestBody Employee employee) {
 		employeeDao.addEmployee(employee);
 		return new ResponseEntity<String>("Employee " + employee.getEmail() + " added", HttpStatus.CREATED);

@@ -1,6 +1,6 @@
 1. GET /employees - to get the list of all employess
 
-2. POST /employees - to add a new employee
+2. POST /addEmployee - to add a new employee
 Example payload for this API
 {
 	id: 100001,
@@ -13,7 +13,7 @@ Example payload for this API
 
 3. GET /projects - to get the list of all projects
 
-4. POST /projects - to add a new project
+4. POST /addProject - to add a new project
 Example payload for this API
 {
 	id: 999,

@@ -27,7 +27,7 @@ public class ProjectController {
 		return projectDao.getProjects();
 	}
 	
-	@RequestMapping(value="/projects", method = RequestMethod.POST)
+	@RequestMapping(value="/addProject", method = RequestMethod.POST)
 	public ResponseEntity<String> addProject(@RequestBody Project project) {
 		projectDao.addProject(project);
 		return new ResponseEntity<String>("Project " + project.getName() + " added", HttpStatus.CREATED);

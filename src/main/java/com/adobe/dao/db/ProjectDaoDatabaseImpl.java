@@ -35,7 +35,7 @@ public class ProjectDaoDatabaseImpl implements ProjectDao {
 		String SQL = "SELECT id, name, client_name FROM T_PROJECT";
 		
 		try {
-			stmt = ProjectDaoDatabaseImpl.con.createStatement();
+			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(SQL);
 			while(rs.next()) {
 			    ProjectDisplayItem project = new ProjectDisplayItem(rs.getString("name"), this.getManager(rs.getInt("id")), this.getStaff(rs.getInt("id")));
@@ -46,13 +46,12 @@ public class ProjectDaoDatabaseImpl implements ProjectDao {
             e.printStackTrace();
 		} finally {
 			DBUtil.releaseStatement(stmt);
-			DBUtil.releaseConnection(ProjectDaoDatabaseImpl.con);
 		}
 		return projects;
 	}
 
 	private List<String> getStaff(int pid) {
-	    List<String> staffList = new ArrayList<>();
+	    List<String> staffList = new ArrayList<String>();
 	    String query = "SELECT employee_id FROM T_WORKS_ON WHERE project_id = ?";
 	    PreparedStatement ps = null;
 	    try {
@@ -62,6 +61,7 @@ public class ProjectDaoDatabaseImpl implements ProjectDao {
             while (rs.next()) {
                 staffList.add(this.getStaffName(rs.getInt("employee_id")));
             }
+            return staffList;
         } catch (SQLException e) {
             System.out.println("Error occurred while fetching the list of employees assigned to the project with id = " + pid);
             e.printStackTrace();
@@ -73,20 +73,18 @@ public class ProjectDaoDatabaseImpl implements ProjectDao {
         String query = "SELECT manager_id FROM T_MANAGES WHERE project_id = ?";
         PreparedStatement ps = null;
         try {
-            ps = ProjectDaoDatabaseImpl.con.prepareStatement(query);
+            ps = con.prepareStatement(query);
             ps.setInt(1, pid);
             ResultSet rs = ps.executeQuery();
-            if (rs != null) {
+            if (rs.next()) {
                 int mid = rs.getInt("manager_id");
                 return this.getStaffName(mid);
             }
-            return null;
         } catch (SQLException e) {
             System.out.println("Error occurred while fetching the manager details for the project with id = " + pid);
             e.printStackTrace();
         } finally {
             DBUtil.releaseStatement(ps);
-            DBUtil.releaseConnection(ProjectDaoDatabaseImpl.con);
         }
         return null;
     }
@@ -96,7 +94,8 @@ public class ProjectDaoDatabaseImpl implements ProjectDao {
         PreparedStatement ps = ProjectDaoDatabaseImpl.con.prepareStatement(query);
         ps.setInt(1, id);
         ResultSet rs = ps.executeQuery();
-        if (rs != null) {
+        if (rs.next()) {
+        	System.out.println(rs.getString("first_name") + rs.getString("last_name"));
             return rs.getString("first_name") + " " + rs.getString("last_name");
         }
         return null;
@@ -118,7 +117,6 @@ public class ProjectDaoDatabaseImpl implements ProjectDao {
             e.printStackTrace();
 		} finally {
 			DBUtil.releaseStatement(ps);
-			DBUtil.releaseConnection(ProjectDaoDatabaseImpl.con);
 		}
 	}
 
@@ -137,7 +135,6 @@ public class ProjectDaoDatabaseImpl implements ProjectDao {
             e.printStackTrace();
 		} finally {
 			DBUtil.releaseStatement(ps);
-			DBUtil.releaseConnection(ProjectDaoDatabaseImpl.con);
 		}
 	}
 
@@ -156,7 +153,6 @@ public class ProjectDaoDatabaseImpl implements ProjectDao {
 		    e.printStackTrace();
 		} finally {
 			DBUtil.releaseStatement(ps);
-			DBUtil.releaseConnection(ProjectDaoDatabaseImpl.con);
 		}
 	}
 
