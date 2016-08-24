@@ -1,0 +1,36 @@
+1. GET /employees - to get the list of all employess
+
+2. POST /employees - to add a new employee
+Example payload for this API
+{
+	id: 100001,
+	fname: "First",
+	lname: "Last",
+	email: "email@xyz.com",
+	salary: 10000,
+	role: "SOFTWARE_ENGINEER/TESTER/MANAGER"
+}
+
+3. GET /projects - to get the list of all projects
+
+4. POST /projects - to add a new project
+Example payload for this API
+{
+	id: 999,
+	name: "Project Name",
+	clientName: "Client Name"
+}
+
+5. POST /assignEmployee - to assign an employee to a project
+Example payload for this API
+{
+	project_id: 99,
+	employee_id: 100001
+}
+
+6. POST /assignManager - to assign a manager to a project
+Example payload for this API
+{
+	project_id: 99,
+	manager_id: 1000002
+}
